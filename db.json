@@ -1,0 +1,14 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "some comment",
+      "image": ""
+    },
+    {
+      "id": 2,
+      "name": "Farmacia",
+      "image": "https://img.icons8.com/office/344/manager.png"
+    }
+  ]
+}
