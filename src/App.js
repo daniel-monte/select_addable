@@ -1,12 +1,11 @@
 import React,{ useState ,useEffect } from 'react';
-import { ListBox } from './components/ListBox';
+import { InputBox } from './components/InputBox';
 
 function App() {
   const [options, setOptions] = useState ([]);
+  const [selected, setSelected] = useState (0);
 
   useEffect (()=> {
-
-    
     const getCategoriesAPI = async () =>{
       try {
         const url = "http://localhost:3004/categories";
@@ -25,9 +24,14 @@ function App() {
   
   return (
     <>
-      <ListBox 
+      <InputBox 
         options = { options }
-        setOptions = { setOptions } />
+        setOptions = { setOptions }
+
+        selected = { selected }
+        setSelected = { setSelected } 
+        
+        />
     </>
   );
 }
