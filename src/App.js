@@ -1,9 +1,9 @@
 import React,{ useState ,useEffect } from 'react';
-import { InputBox } from './components/InputBox';
+import { SelectAddable } from './components/SelectAddable';
 
 function App() {
-  const [options, setOptions] = useState ([]);
-  const [selected, setSelected] = useState (0);
+  const [optionsInput, setOptionsInput] = useState ([]);
+  const [queryInput, setQueryInput] = useState (0);
 
   useEffect (()=> {
     const getCategoriesAPI = async () =>{
@@ -18,21 +18,20 @@ function App() {
     }
 
     getCategoriesAPI().then( val => {  
-      setOptions(val)
+      setOptionsInput(val)
     })
   }, [])
   
   return (
-    <>
-      <InputBox 
-        options = { options }
-        setOptions = { setOptions }
+    <div className="flex justify-center pt-16">
+      <SelectAddable 
+        options = { optionsInput }
+        setOptions = { setOptionsInput }
 
-        selected = { selected }
-        setSelected = { setSelected } 
-        
+        query = { queryInput }
+        setQuery = { setQueryInput } 
         />
-    </>
+    </div>
   );
 }
 
