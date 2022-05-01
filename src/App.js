@@ -3,7 +3,7 @@ import { SelectAddable } from './components/SelectAddable';
 
 function App() {
   const [optionsInput, setOptionsInput] = useState ([]);
-  const [queryInput, setQueryInput] = useState (0);
+  const [queryInput, setQueryInput] = useState ('');
 
   useEffect (()=> {
     const getCategoriesAPI = async () =>{
@@ -11,7 +11,13 @@ function App() {
         const url = "http://localhost:3004/categories";
         const response = await fetch (url);
         const result = await response.json();
-        return result
+
+        //ordenando un poco antes de enviar
+        return result.sort( (a, b)=>{
+          return  a.name > b.name ? 1  :
+                  a.name < b.name ? -1 :
+                  0
+        })
       } catch (error){
         console.log(error);
       }
