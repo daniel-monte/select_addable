@@ -1,32 +1,28 @@
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect'
+import userEvent from '@testing-library/user-event'
 
 import { SelectAddable } from '../components/SelectAddable'
 
-//const filterOptions = jest.fn();
 
-afterEach( cleanup );
 
-test('[Reposo] Indica que podemos escribir en él', () => {
-  render(<SelectAddable />);
 
-  expect( screen.getByTestId('input').placeholder ).toBe('Selecciona una Opcion');
-  expect( screen.getByTestId('listBox') ).not.toBeVisible()
-
-});
-/*
-test('[Desplegado] Al hacer click despliega la lista con las categorías de gastos disponibles', ()=>{
-  render(<SelectAddable />);
-
-  //click in input list
-  //const inputList = screen.getByTestId('input');
-  //fireEvent.click(inputList);
-
-  //then
-  //expect( screenget.getByTestId('listBox') ).toBeVisible()
-
-});
-
-test('[Escrito] Muestra la opción seleccionada o bien el texto escrito', ()=>{
+test('<SelectAddable /> [Reposo] Indica que podemos escribir en él', async () => {
   
-}) */
+  render(<SelectAddable />);
+
+  const listBox = screen.findAllByTestId('listBox')
+
+  //console.log(await listBox)
+  //expect( await listBox ).toHaveLength(1)
+
+
+
+
+
+  //expect( screen.getByTestId('input').placeholder ).toBe('Selecciona una Opcion');
+
+
+
+
+});
