@@ -1,19 +1,61 @@
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect'
-import userEvent from '@testing-library/user-event'
+import { render, screen, fireEvent } from '@testing-library/react';
 
-import { SelectAddable } from '../components/SelectAddable'
+import '@testing-library/jest-dom/extend-expect';
 
+import { SelectAddable } from '../components/SelectAddable';
+import { categories } from '../__mocks__/categories';
 
-test('<SelectAddable /> [Reposo] Indica que podemos escribir en él', async () => {
+beforeEach(()=>{
+  const setOptions = jest.fn();
+  const setSelected = jest.fn();
+  const setNewOption = jest.fn();
+  
+  render(<SelectAddable 
+    options = {categories}
+    setOptions = {setOptions}
+    setSelected = {setSelected}
+    setNewOption = {setNewOption}
+  />);
+})
 
-  render(<SelectAddable />);
+test('<SelectAddable /> Todo preparado', () => {
 
-  const listBox = screen.findAllByTestId('list-box')
+  expect( screen.getByTestId('input').placeholder ).toBe('Selecciona una Opcion');
+  expect(screen.getByTestId('list-box').children.length).toEqual(categories.length)
 
-  //console.log(await listBox)
-  expect( await listBox ).toHaveLength(1)
+});
 
+test('<SelectAddable /> al escribir "ci", el listado de categorías puede mostrar "Estación de servicio", y "Farmacia"', () => {
 
-  //expect( screen.getByTestId('input').placeholder ).toBe('Selecciona una Opcion');
+  const input = screen.getByTestId('input');
+  const listBox = screen.getByTestId('list-box')
+
+  fireEvent.change(input, {target: {value: 'ci'}})
+  
+  expect(listBox).toHaveTextContent('Farmacia')
+  expect(listBox).toHaveTextContent('Estación de servicio')
+  
+  expect(listBox).not.toHaveTextContent('Verduleria')
+});
+
+test('<SelectAddable /> Al ingresar un texto que no coincide con ninguna de las categorías mostradas y presionar "Enter", el texto ingresado aparecerá como una nueva categoría', () => {
+
+  const input = screen.getByTestId('input');
+  const listBox = screen.getByTestId('list-box')
+
+  fireEvent.change(input, {target: {value: 'Salida'}})
+  
+  expect(listBox).not.toHaveTextContent('Farmacia')
+  expect(listBox).not.toHaveTextContent('Estación de servicio')
+  expect(listBox).not.toHaveTextContent('Verduleria')
+
+  fireEvent.keyDown(input, {
+    key: "Enter",
+    code: "Enter",
+    keyCode: 13,
+    charCode: 13
+  });
+
+  //expect(screen.getByTestId('list-box').children.length).toEqual(options.length+1)
+  screen.debug()
 });

@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid'//Icon
 
 export const SelectAddable = props => {
-  const { options = [], setOptions, selected = {}, setSelected, setNewOption } = props;
+  const { options , setOptions, selected = {}, setSelected, setNewOption } = props;
   const inputSelect = useRef(null);
   
   const [ query, setQuery ] = useState('');
@@ -98,7 +98,8 @@ export const SelectAddable = props => {
           value = { query }
           onFocus = { (event)=> handleOpenListBox(event.target.value) }
         />
-        <span 
+        <span
+          data-testid='button-open-box'
           onClick = { handleClickOpenBox }
           className="absolute inset-y-0 right-0 flex items-center bg-teal-700 rounded-r-xl px-3 cursor-pointer">
             <span className="h-5 w-5 text-white">
@@ -106,13 +107,12 @@ export const SelectAddable = props => {
             </span>
         </span>
       </div>
-      <div 
-        data-testid='list-box'
-        className={`${!openListBox && 'invisible'} transition ease-in duration-100 absolute mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow-lg ring-black ring-0 sm:text-sm`}>
-        
-        <div className="relative cursor-default select-none text-gray-900 rounded-xl">
+      <div className={`${!openListBox && 'invisible'} transition ease-in duration-100 absolute mt-2 max-h-60 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow-lg ring-black ring-0 sm:text-sm`}>
+        <div 
+          data-testid='list-box'
+          className="relative cursor-default select-none text-gray-900 rounded-xl">
           {filterOptions().length === 0 && query !== '' ? (
-            <span className='py-2 flex'> <p className='text-center w-full'> Nada Encontrado </p> </span>
+            <span className='py-2 flex'> <p className='text-center w-full'> No encontrado ... </p> </span>
           ):(
             filterOptions().map( ( option, index ) => (
               <div 

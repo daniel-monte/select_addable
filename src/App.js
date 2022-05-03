@@ -13,9 +13,11 @@ function App() {
         const url = "http://localhost:3004/categories"; // json-server
         const response = await fetch (url);
         const result = await response.json();
+
+        return result
         
       } catch ( error ){
-        //console.log( error );
+        console.log( error );
         return categories;
       }
     }
