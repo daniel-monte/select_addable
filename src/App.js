@@ -3,7 +3,7 @@ import { SelectAddable } from './components/SelectAddable';
 
 function App() {
   const [optionsInput, setOptionsInput] = useState ([]);
-  const [queryInput, setQueryInput] = useState ('');
+  const [selectedInput, setSelectedInput] = useState ({});
 
   useEffect (()=> {
     const getCategoriesAPI = async () =>{
@@ -34,8 +34,8 @@ function App() {
         options = { optionsInput }
         setOptions = { setOptionsInput }
 
-        query = { queryInput }
-        setQuery = { setQueryInput } 
+        selected = { selectedInput }
+        setSelected = { setSelectedInput } 
         />
     </div>
   );
