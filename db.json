@@ -2,18 +2,28 @@
   "categories": [
     {
       "id": 1,
-      "name": "Estación de servicio",
+      "name": "estación de servicio",
       "image": "https://brandeps.com/icon-download/C/Car-icon-vector-06.svg"
     },
     {
       "id": 2,
-      "name": "Farmacia",
+      "name": "farmacia",
       "image": "https://img.freepik.com/vector-gratis/icono-circulo-capsula-pildora-ilustracion-vector-larga-sombra-articulo-medicina_520826-3718.jpg?w=740"
     },
     {
       "id": 3,
-      "name": "Verduleria",
+      "name": "verduleria",
       "image": "https://creazilla-store.fra1.digitaloceanspaces.com/emojis/58449/green-salad-emoji-clipart-md.png"
+    },
+    {
+      "id": 4,
+      "name": "joda",
+      "image": "https://cdn-icons-png.flaticon.com/512/761/761777.png"
+    },
+    {
+      "id": 5,
+      "name": "qweqwe",
+      "image": "https://cdn-icons-png.flaticon.com/512/761/761777.png"
     }
   ]
 }

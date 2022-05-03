@@ -2,11 +2,11 @@ import React, { useState, useRef } from 'react'
 import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/solid'//Icon
 
 export const SelectAddable = props => {
-  const { options = [], setOptions, selected = {}, setSelected } = props;
+  const { options = [], setOptions, selected = {}, setSelected, setNewOption } = props;
   const inputSelect = useRef(null);
   
   const [ query, setQuery ] = useState('');
-  const [ openListBox, setOpenListBox ] = useState(true);
+  const [ openListBox, setOpenListBox ] = useState(false);
 
   const [forceOpenList, setForceOpenList] = useState(false);
   const [indexHover, setIndexHover] = useState(0);
@@ -22,7 +22,6 @@ export const SelectAddable = props => {
           .replace(/[\u0300-\u036f-\s+]/g, '')
           .includes( query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f-\s+]/g, '') )
       )
-   
     )
   )
 
@@ -31,6 +30,7 @@ export const SelectAddable = props => {
     setQuery(option.name);
 
     setOpenListBox(false);
+    setIndexHover(0)
   }
 
   const saveNewOption = ()=>{
@@ -43,9 +43,10 @@ export const SelectAddable = props => {
 
     setOptions([...options, newOption]);
     setSelected(newOption);
+    setNewOption(newOption); //lo estaran escuchando en app para guardar en la base de datos
     
     setForceOpenList(true);
-    setIndexHover(options.length); // para indicar el elemento recien agregado
+    setIndexHover(options.length); // para indicar/pintar el elemento recien agregado en el listBox
   }
 
   const handleOnChange = e => {
@@ -54,21 +55,21 @@ export const SelectAddable = props => {
     setQuery(e.target.value)
     handleOpenListBox(e.target.value)
     
-    e.target.value == '' && setSelected({})
+    e.target.value === '' && setSelected({})
   }
 
   const handleKeyDown = e => {
-    filterOptions().length > 0 ?
-      e.keyCode === 13 ? selectOption( filterOptions()[indexHover] ): //key enter ←
-      e.keyCode === 38 && indexHover > 0 ? setIndexHover( indexHover - 1 ): //key arrow up ↑
-      e.keyCode === 40 && indexHover < filterOptions().length - 1 && setIndexHover( indexHover + 1 ) //key arrow down ↓
-    
-    : e.keyCode === 13 && saveNewOption();
+    e.keyCode === 13 ? //key enter ←
+      filterOptions().length > 0 ? selectOption( filterOptions()[indexHover] ) : saveNewOption():
+    e.keyCode === 38 && indexHover > 0 ? setIndexHover( indexHover - 1 ): //key arrow up ↑
+    e.keyCode === 40 && indexHover < filterOptions().length - 1 && setIndexHover( indexHover + 1 ) //key arrow down ↓
   }
   
-
   const handleClickOpenBox = () =>{
     inputSelect.current.focus();
+
+    const idx = options.indexOf(selected);
+    setIndexHover(idx === -1 ? 0 : idx)
 
     setForceOpenList(!openListBox);
     setOpenListBox(!openListBox); //Forzar a abrir la lista de opciones completa (sin filtros)
@@ -76,7 +77,7 @@ export const SelectAddable = props => {
 
   const handleOpenListBox = q => {
     setIndexHover( 0 )
-    filterOptions().length === 1 && filterOptions()[0].name == q
+    filterOptions().length === 1 && filterOptions()[0].name === q
       ? setOpenListBox(false)
       : setOpenListBox(true);
   }

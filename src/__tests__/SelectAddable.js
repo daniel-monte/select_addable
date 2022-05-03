@@ -12,7 +12,7 @@ test('<SelectAddable /> [Reposo] Indica que podemos escribir en él', async () =
   const listBox = screen.findAllByTestId('list-box')
 
   //console.log(await listBox)
-  //expect( await listBox ).toHaveLength(1)
+  expect( await listBox ).toHaveLength(1)
 
 
   //expect( screen.getByTestId('input').placeholder ).toBe('Selecciona una Opcion');
