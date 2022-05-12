@@ -2,3 +2,7 @@ Un component desarrollado desde 0 por mi que trae opciones desde una base de dat
 
 Demo preview
 https://heartfelt-sable-29c97d.netlify.app/
+
+#react.js
+#javascript
+#tailwindcss
